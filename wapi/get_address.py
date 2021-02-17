@@ -1,32 +1,29 @@
+import requests
 import json
-from wapi import *
-def doge_address():
-                 data = json.dumps({'api_key' = "api_key",
-                                    'currency' = "DOGE"
-                                    'username' = "username"
-                                    'action' = 'getnewaddress'
+from __init__ import *
+from config import *
+
+
+def get_address(currency):
+                 data = json.dumps({'apikey':api_key,
+                                    'currency':currency,
+                                    'username':str(username),
+                                    'action':'getnewaddress'
                                     })
-                 r = requests.post( wapi_key, data = data)
+
+                 r = requests.post(str(wapi_url), data = data)
 
                  js = json.loads(r.text)
                  return js['address']
-def ltc_address():
-                data = json.dumps({'api_key' = "api_key",
-                                    'currency' = "LTC"
-                                    'username' = "username"
-                                    'action' = 'getnewaddress'
-                                    })
-                 r = requests.post( wapi_key, data = data)
 
-                 js = json.loads(r.text)
-                 return js['address']
-def btc_address():
-                data = json.dumps({'api_key' = "api_key",
-                                    'currency' = "BTC"
-                                    'username' = "username"
-                                    'action' = 'getnewaddress'
-                                    })
-                 r = requests.post( wapi_key, data = data)
 
-                 js = json.loads(r.text)
-                 return js['address']
+btc = get_address("btc")
+doge = get_address("doge")
+ltc = get_address("ltc")
+a = "Your doge address is :\n"
+b = "Your ltc address is :\n"
+c = "Your btc address is :\n"
+
+def addresses():
+             addresses = print(str(a), doge +"\n"+ str(b), ltc + "\n" + str(c),btc )
+             return addresses
